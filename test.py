@@ -8,5 +8,3 @@ def testTime():
     list = ConvertTime.convertTime("2016","03","22","2017","09","11")
     for i in list:
         print(i)
-
-testTime()
