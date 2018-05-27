@@ -15,9 +15,33 @@ app = Flask(__name__)
 
 @app.route('/',methods=['GET', 'POST'])
 def index():
-    if request == 'GET':
-        return render_template("index.html")
+    if request.method == 'GET':
+        print("get")
+        dateBegin = request.form.get('Date_Begin')
+        dateEnd = request.form.get('Date_End')
+        Hand_Result = request.form.get('Hand_Result')
+        EmployerCode = request.form.get('Department_Type')
+        Responsibli_Preson = request.form.get('Responsibli_Preson')
+        Show_S_RESPONSIBILITYDEPT = DepartmHandResult.first_layer_Two('2017-07-22', '2017-08-23')
+        show_S_HANDLEREASULT = FirstLayer.first_layer(dateBegin, dateEnd)
+        show_S_Second_Layer_RESPONSIBILITYDEPT, show_S_Second_Layer_Hand_Result = Second_Layer.Second_layer(dateBegin,
+                                                                                                            dateEnd,
+                                                                                                            Hand_Result)
+        show_S_Third_Layer_S_EMPLOYEECODE, show_S_Third_Layer_EmployerCode = Third_Layer.Third_layer(dateBegin, dateEnd,
+                                                                                                     Hand_Result,
+                                                                                                     EmployerCode)
+        show_S_Fourth_Layer_RESPONSIBLEPERSON, show_S_Fourth_Layer_People_Depart = Fourth_Layer.Fourth_layer(dateBegin,
+                                                                                                             dateEnd,
+                                                                                                             Hand_Result,
+                                                                                                             EmployerCode,
+                                                                                                             Responsibli_Preson)
+
+        return render_template("index.html",dateBegin = dateBegin,
+                               dateEnd = dateEnd,
+                               Show_S_RESPONSIBILITYDEPT = Show_S_RESPONSIBILITYDEPT, show_S_HANDLEREASULT = show_S_HANDLEREASULT,show_S_Second_Layer_RESPONSIBILITYDEPT = show_S_Second_Layer_RESPONSIBILITYDEPT,show_S_Second_Layer_Hand_Result = show_S_Second_Layer_Hand_Result,show_S_Third_Layer_S_EMPLOYEECODE = show_S_Third_Layer_S_EMPLOYEECODE,show_S_Third_Layer_EmployerCode=show_S_Third_Layer_EmployerCode,show_S_Fourth_Layer_RESPONSIBLEPERSON = show_S_Fourth_Layer_RESPONSIBLEPERSON,show_S_Fourth_Layer_People_Depart=show_S_Fourth_Layer_People_Depart)
+        # return None
     else:
+        print("post" + request.data.decode("utf-8"))
         dateBegin = request.form.get('Date_Begin')
         dateEnd = request.form.get('Date_End')
         Hand_Result = request.form.get('Hand_Result')
