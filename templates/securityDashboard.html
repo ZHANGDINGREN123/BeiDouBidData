@@ -1,0 +1,324 @@
+{% extends 'base.html' %}
+{% block title %}
+    安全问题
+{% endblock %}
+{% block content %}
+       <!-- top tiles -->
+    <div class="row tile_count">
+        <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count" style="margin-right: 30px;padding-left: 27px">
+            <span class="count_top"><i class="fa fa-clock-o"></i> 发卡数量最多</span>
+            <div class="count"><i class="fa fa-user"></i>{{ Security1[0][0] }}</div>
+{#            <span class="count_bottom"><i class="fa fa-users"></i> </span>#}
+        </div>
+        <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count" style="margin-right: 30px;padding-left: 35px">
+            <span class="count_top"><i class="fa fa-clock-o"></i> 受卡数量最多</span>
+            <div class="count"><i class="fa fa-user"></i>{{ Security2[0][0] }}</div>
+{#            <span class="count_bottom"><i class="fa fa-users"></i> </span>#}
+        </div>
+        <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count" style="margin-right: 30px;padding-left: 35px">
+            <span class="count_top"><i class="fa fa-clock-o"></i> 安全问题总数</span>
+            <div class="count"><i class="fa fa-user"></i>{{ Security3[0][0] }}</div>
+{#            <span class="count_bottom"><i class="fa fa-users"></i> </span>#}
+        </div>
+        <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count" style="margin-right: 30px;padding-left: 35px">
+            <span class="count_top"><i class="fa fa-clock-o"></i> 红通问题总数</span>
+            <div class="count"><i class="fa fa-user"></i>{{  Security4[0][0] }}</div>
+{#            <span class="count_bottom"><i class="fa fa-users"></i> </span>#}
+        </div>
+        <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count" style="margin-right: 30px;padding-left: 35px">
+            <span class="count_top"><i class="fa fa-clock-o"></i> 违反最多的条款</span>
+            <div class="count"><i class="fa fa-user"></i>{{ Security5[0][0] }}</div>
+{#            <span class="count_bottom"><i class="fa fa-users"></i> </span>#}
+        </div>
+{#        <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">#}
+{#            <span class="count_top"><i class="fa fa-clock-o"></i> 今日支出</span>#}
+{#            <div class="count">500元</div>#}
+{#            <span class="count_bottom"><i class="red"><i#}
+{#                    class="fa fa-sort-desc"></i>12% </i> 与上月同日相比</span>#}
+{#        </div>#}
+    </div>
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="col-md-6" style="width: 100%">
+                    <form action="" method="post">
+                        <span>查询起始日期:</span>
+                        <input type="text" placeholder="请输入起始日期" name="Date_Begin" id="Date_Begin">
+                        <span>查询终止日期:</span>
+                        <input type="text" placeholder="请输入终止日期" name="Date_End" id="Date_End">
+                        <input type="submit"  value="查询">
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>各区域安全问题</h2>
+                {% for k1,v1 in show_S_new_security.items() %}
+                        <p name="securityChartKey" style="display: none">{{ k1 }}</p>
+                        <p name="securityChartValue" style="display: none">{{ v1 }}</p>
+                {% endfor %}
+                <ul class="nav navbar-right panel_toolbox">
+                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+
+                <div id="securityChart"
+                     style="height: 350px; -webkit-tap-highlight-color: transparent; user-select: none; position: relative; background-color: transparent;"
+                     _echarts_instance_="ec_1509163677251">
+                    <div style="position: relative; overflow: hidden; width: 685px; height: 350px; cursor: default;">
+                        <canvas width="1370" height="700" data-zr-dom-id="zr_0"
+                                style="position: absolute; left: 0px; top: 0px; width: 685px; height: 350px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></canvas>
+                    </div>
+                    <div style="position: absolute; display: none; border-style: solid; white-space: nowrap; z-index: 9999999; transition: left 0.4s cubic-bezier(0.23, 1, 0.32, 1), top 0.4s cubic-bezier(0.23, 1, 0.32, 1); background-color: rgba(0, 0, 0, 0.5); border-width: 0px; border-color: rgb(51, 51, 51); border-radius: 4px; color: rgb(255, 255, 255); font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 14px; font-family: Arial, Verdana, sans-serif; line-height: 21px; padding: 5px; left: 522.333px; top: 151px;">
+                        10?<br><span
+                            style="display:inline-block;margin-right:5px;border-radius:10px;width:9px;height:9px;background-color:#26B99A"></span>sales
+                        : 20<br><span
+                            style="display:inline-block;margin-right:5px;border-radius:10px;width:9px;height:9px;background-color:#34495E"></span>purchases
+                        : 18.8
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+        <div class="col-md-12 col-sm-12 col-xs-12">
+             <div class="x_panel">
+                <div class="x_title">
+                    <p id="dateBegin" style="display: none">{{ dateBegin }}</p>
+                    <p id="dateEnd" style="display: none">{{ dateEnd }}</p>
+                    <h2>安全词云</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                               aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        </li>
+                        <li><a class="close-link"><i class="fa fa-close"></i></a>
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    {#<p>故障词云</p>#}
+                        {% for k,v in show_S_Security_Word.items() %}
+                            <p name="securityWorldKey" style="display: none">{{ k }}</p>
+                            <p name="securityWorldValue" style="display: none">{{ v }}</p>
+                        {% endfor %}
+                    <div id="securityWorld" style="height:350px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block script %}
+    <script src="../static/echarts.js"></script>
+    <script src="../static/echarts/dist/macarons.js"></script>
+    <script src="/static/echarts/dist/echarts-wordcloud.js"></script>
+    <script type="application/javascript">
+        window.onload = function () {
+            var Date_Begin = document.getElementById('Date_Begin');
+            var Date_End = document.getElementById('Date_End');
+            var dateBegin = document.getElementById('dateBegin');
+    {#        console.log(dateBegin.innerHTML);#}
+            var dateEnd = document.getElementById('dateEnd');
+
+            Date_Begin.value = dateBegin.innerHTML;
+            Date_End.value = dateEnd.innerHTML;
+
+            var securityChartKey = document.getElementsByName('securityChartKey');
+            var securityChartValue = document.getElementsByName('securityChartValue');
+            var securityDataName=[];
+            var securityDataValue=[];
+            for(var i =0;i<securityChartKey.length;i++){
+                securityDataName[i] = securityChartKey[i].innerHTML;
+            }
+            for(var i =0;i<securityChartValue.length;i++){
+                securityDataValue[i] = securityChartValue[i].innerHTML;
+            }
+            console.log(securityDataName);
+            console.log(securityDataValue);
+            drawsecurity(securityDataName,securityDataValue);
+        }
+
+        var drawsecurity = function (dataName,dataValue) {
+            var securityChart = echarts.init(document.getElementById('securityChart'));
+            securityKey_option = {
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                        type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                    }
+                },
+                toolbox:{
+                  show:true,
+                    feature:{
+                      mark:{show:true},
+                        dataView:{show:true,readOnly:false},
+                        saveAsImage:{show:true},
+                    }
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                xAxis: [
+                    {
+                        type: 'category',
+                        data: dataName,
+                        axisTick: {
+                            alignWithLabel: true
+                        },
+                        axisLabel:{
+                            rotate:60,
+                            interval: 0,
+                        },
+                    }
+                ],
+                yAxis: [
+                    {
+                        type: 'value'
+                    }
+                ],
+                series: [
+                    {
+                        name: '出现安全问题次数',
+                        type: 'bar',
+                        barWidth: '60%',
+                        data:(function (arr1,arr2) {
+                        var len = arr1.length<arr2.length?arr1.length:arr2.length;
+                        var dataArr = [];
+                        for(var i=0;i<len;i++){
+                            var obj = new Object();
+                            obj.value = arr1[i];
+                            obj.name = arr2[i];
+                            dataArr.push(obj);
+                        }
+                        return dataArr;
+                        })(dataValue,dataName),
+                        itemStyle: {
+                            normal:{
+                                color:function (params){
+                                var colorList = ['#3fb1e3','#6be6c1','#626c91','#a0a7e6','#c4ebad','#96dee8', '#3fb1e3','#6be6c1','#626c91', '#3fb1e3','#6be6c1','#626c91','#a0a7e6','#c4ebad','#96dee8','#3fb1e3','#6be6c1','#626c91','#a0a7e6','#c4ebad','#96dee8','#3fb1e3','#6be6c1','#626c91','#a0a7e6','#c4ebad','#96dee8','#3fb1e3','#6be6c1','#626c91','#a0a7e6','#c4ebad','#96dee8','#3fb1e3','#6be6c1','#626c91','#a0a7e6','#c4ebad','#96dee8','#3fb1e3','#6be6c1','#626c91','#a0a7e6','#c4ebad','#96dee8','#3fb1e3','#6be6c1','#626c91','#a0a7e6','#c4ebad','#96dee8', '#3fb1e3','#6be6c1','#626c91', '#3fb1e3','#6be6c1','#626c91','#a0a7e6','#c4ebad','#96dee8','#3fb1e3','#6be6c1','#626c91','#a0a7e6','#c4ebad','#96dee8','#3fb1e3','#6be6c1','#626c91','#a0a7e6','#c4ebad','#96dee8','#3fb1e3','#6be6c1','#626c91','#a0a7e6','#c4ebad','#96dee8','#3fb1e3','#6be6c1','#626c91','#a0a7e6','#c4ebad','#96dee8','#3fb1e3','#6be6c1','#626c91','#a0a7e6','#c4ebad','#96dee8' ];
+                                return colorList[params.dataIndex];
+                                }
+                            },
+                            emphasis: {
+    {#                            barBorderColor: 'rgba(0,0,0,0)',   // 柱条边线#}
+    {#                            barBorderRadius: 0,                // 柱条边线圆角，单位px，默认为0#}
+    {#                            barBorderWidth: 1,                 // 柱条边线线宽，单位px，默认为1#}
+                                shadowBlur: 10,
+                                shadowOffsetX: 0,
+                                shadowColor: 'rgba(0, 0, 0, 0.5)'
+                            }
+                        }
+                    }
+                ]
+            };
+            securityChart.setOption(securityKey_option)
+        }
+
+
+    if ($("#securityWorld").length) {
+        var securityWorldKey = document.getElementsByName('securityWorldKey');
+        var securityWorldValue = document.getElementsByName('securityWorldValue');
+        var dataName = [];
+        var dataValue = [];
+
+        for(var i=0;i<securityWorldValue.length;i++){
+            dataValue[i] = securityWorldValue[i].innerHTML;
+        }
+        for(var i=0;i<securityWorldKey.length;i++){
+            dataName[i] = securityWorldKey[i].innerHTML;
+        }
+{#        console.log(dataName);#}
+{#        console.log(dataValue);#}
+
+        var securityWorldChart = echarts.init(document.getElementById('securityWorld'));
+
+        option = {
+            tooltip : {
+                trigger: 'item',
+                formatter: "{a} <br/>{b} : {c} "
+            },
+            toolbox:{
+              show:true,
+                feature:{
+                  mark:{show:true},
+                    dataView:{show:true,readOnly:false},
+                    saveAsImage:{show:true},
+                }
+            },
+            series: [{
+                type: 'wordCloud',
+
+                shape:'circle',
+
+                left:'center',
+                top:'center',
+                width:'100%',
+                height:'80%',
+                right:null,
+                bottom:null,
+
+                textRotation:[0,15],
+                //默认字体大小
+                sizeRange:[12,60],
+
+                //文本旋转范围和步进度。文本将在范围[0,15]内随机旋转
+                rotationRange:[-45,45],
+                rotationStep:45,
+
+                ///网格尺寸越大，单词之间的差距就越大。
+                gridSize:18,
+
+                drawOutBound:false,
+
+                textStyle:{
+                    textRotation:[0,15],
+                    normal:{
+                        fontFamily:'sans-serif',
+                        fontWeight:'bold',
+                        color:'#3d3d3d',
+                        color: function () {
+                            return 'rgb(' + [
+                                Math.round(Math.random() * 160),
+                                Math.round(Math.random() * 160),
+                                Math.round(Math.random() * 160)
+                            ].join(',') + ')'
+                        },
+                    },
+                    emphasis:{
+                        shadowBlur:10,
+                        shadowColor:'#333',
+                    }
+                },
+                data:(function (arr1,arr2) {
+                    var len = arr1.length<arr2.length?arr1.length:arr2.length;
+                        var dataArr = [];
+                        for(var i=0;i<len;i++){
+                            var obj = new Object();
+                            obj.value = arr1[i];
+                            obj.name = arr2[i];
+                            dataArr.push(obj);
+                        }
+                        return dataArr;
+                })(dataValue,dataName),
+            }]
+        };
+        securityWorldChart.setOption(option);
+    }
+
+    </script>
+{% endblock %}

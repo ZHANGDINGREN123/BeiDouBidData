@@ -1,0 +1,348 @@
+{% extends 'base.html' %}
+{% block title %}
+    首页
+{% endblock %}
+{% block content %}
+    <!-- top tiles -->
+    <div class="row tile_count">
+        <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count" style="margin-right: 30px;padding-left: 27px">
+            <span class="count_top"><i class="fa fa-clock-o"></i> 设备故障总数</span>
+            <div class="count"><i class="fa fa-github"></i>{{ Dashboard1[0][0] }}</div>
+{#            <span class="count_bottom"><i class="fa fa-users"></i> </span>#}
+        </div>
+        <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count" style="margin-right: 30px;padding-left: 35px">
+            <span class="count_top"><i class="fa fa-clock-o"></i> 设备故障词频出现最多</span>
+            <div class="count"><i class="fa fa-github"></i>{{ Dashboard2 }}</div>
+{#            <span class="count_bottom"><i class="fa fa-users"></i> </span>#}
+        </div>
+        <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count" style="margin-right: 30px;padding-left: 35px">
+            <span class="count_top"><i class="fa fa-clock-o"></i> 设备故障词频出现第二多</span>
+            <div class="count"><i class="fa fa-github"></i>{{ Dashboard3 }}</div>
+{#            <span class="count_bottom"><i class="fa fa-users"></i> </span>#}
+        </div>
+        <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count" style="margin-right: 30px;padding-left: 35px">
+            <span class="count_top"><i class="fa fa-clock-o"></i> 最多录入部门</span>
+            <div class="count"><i class="fa fa-github"></i>{{ Dashboard4[0][0] }}</div>
+{#           <span class="count_bottom"><i class="fa fa-users"></i> </span>#}
+        </div>
+        <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count" style="margin-right: 30px;padding-left: 35px">
+            <span class="count_top"><i class="fa fa-clock-o"></i> 最大维修花费</span>
+            <div class="count"><i class="fa fa-github"></i>{{ Dashboard5[0][0] }}</div>
+{#            <span class="count_bottom"><i class="fa fa-users"></i></span>#}
+        </div>
+{#        <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">#}
+{#            <span class="count_top"><i class="fa fa-clock-o"></i> 今日支出</span>#}
+{#            <div class="count">500元</div>#}
+{#            <span class="count_bottom"><i class="red"><i#}
+{#                    class="fa fa-sort-desc"></i>12% </i> 与上月同日相比</span>#}
+{#        </div>#}
+    </div>
+    <!-- /top tiles -->
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="col-md-6" style="width: 100%">
+                    <form action="" method="post">
+                        <span>查询起始日期:</span>
+                        <input type="text" placeholder="请输入起始日期" name="Date_Begin" id="Date_Begin">
+                        <span>查询终止日期:</span>
+                        <input type="text" placeholder="请输入终止日期" name="Date_End" id="Date_End">
+                        <input type="submit"  value="查询">
+                    </form>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>设备故障统计</h2>
+                    {% for k1,v1 in show_S_new_falut.items() %}
+                        <p name="faultyChartKey" style="display: none">{{ k1 }}</p>
+                        <p name="faultyChartValue" style="display: none">{{ v1 }}</p>
+                    {% endfor %}
+
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                               aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        </li>
+                        <li><a class="close-link"><i class="fa fa-close"></i></a>
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+
+                    <div id="faultyChart" style="height:350px;"></div>
+
+                </div>
+            </div>
+        </div>
+
+{#        <div class="col-md-12 col-sm-12 col-xs-12">#}
+{#            <div class="x_panel">#}
+{#                <div class="x_title">#}
+                     <p id="dateBegin" style="display: none">{{ dateBegin }}</p>
+                     <p id="dateEnd" style="display: none">{{ dateEnd }}</p>
+{#                    <h2>安全词云</h2>#}
+{#                    <ul class="nav navbar-right panel_toolbox">#}
+{#                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>#}
+{#                        </li>#}
+{#                        <li class="dropdown">#}
+{#                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"#}
+{#                               aria-expanded="false"><i class="fa fa-wrench"></i></a>#}
+{#                        </li>#}
+{#                        <li><a class="close-link"><i class="fa fa-close"></i></a>#}
+{#                        </li>#}
+{#                    </ul>#}
+{#                    <div class="clearfix"></div>#}
+{#                </div>#}
+{#                <div class="x_content">#}
+{#                    <div id="securityWorld" style="height:350px;"></div>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>故障词云</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                               aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        </li>
+                        <li><a class="close-link"><i class="fa fa-close"></i></a>
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <div id="faultWorld" style="height:350px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{#{% for k,v in show_S_Security_Word.items() %}#}
+{#    <p name="securityWorldKey" style="display: none">{{ k }}</p>#}
+{#    <p name="securityWorldValue" style="display: none">{{ v }}</p>#}
+{#{% endfor %}#}
+
+{#<p>故障词云</p>#}
+{% for k,v in show_S_Falut_Word.items() %}
+    <p name="faultWorldKey" style="display: none">{{ k }}</p>
+    <p name="faultWorldValue" style="display: none">{{ v }}</p>
+{% endfor %}
+                    <hr>
+
+
+{% endblock %}
+{% block script %}
+    <script src="../static/echarts.js"></script>
+    <script src="/static/echarts/dist/echarts-wordcloud.js"></script>
+    <script type="text/javascript">
+        window.onload = function () {
+            var Date_Begin = document.getElementById('Date_Begin');
+            var Date_End = document.getElementById('Date_End');
+            var dateBegin = document.getElementById('dateBegin');
+    {#        console.log(dateBegin.innerHTML);#}
+            var dateEnd = document.getElementById('dateEnd');
+
+            Date_Begin.value = dateBegin.innerHTML;
+            Date_End.value = dateEnd.innerHTML;
+
+            var faultyChartKey = document.getElementsByName('faultyChartKey');
+            var faultyChartValue = document.getElementsByName('faultyChartValue');
+            var faultyDataName=[];
+            var faultyDataValue=[];
+            for(var i =0;i<faultyChartKey.length;i++){
+                faultyDataName[i] = faultyChartKey[i].innerHTML;
+            }
+            for(var i =0;i<faultyChartValue.length;i++){
+                faultyDataValue[i] = faultyChartValue[i].innerHTML;
+            }
+            console.log(faultyDataName);
+            console.log(faultyDataValue);
+            drawsecurity(faultyDataName,faultyDataValue);
+        }
+
+         var drawsecurity = function (dataName,dataValue) {
+           var faultyChart = echarts.init(document.getElementById('faultyChart'));
+            faultyChart_option = {
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                        type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                    }
+                },
+                toolbox:{
+                  show:true,
+                    feature:{
+                      mark:{show:true},
+                        dataView:{show:true,readOnly:false},
+                        saveAsImage:{show:true},
+                    }
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                xAxis: [
+                    {
+                        type: 'category',
+                        data: dataName,
+                        axisTick: {
+                            alignWithLabel: true
+                        },
+                        axisLabel:{
+                            rotate:60,
+                            interval: 0,
+                        },
+                    }
+                ],
+                yAxis: [
+                    {
+                        type: 'value'
+                    }
+                ],
+                series: [
+                    {
+                        name: '出现安全问题次数',
+                        type: 'bar',
+                        barWidth: '60%',
+                        data:(function (arr1,arr2) {
+                        var len = arr1.length<arr2.length?arr1.length:arr2.length;
+                        var dataArr = [];
+                        for(var i=0;i<len;i++){
+                            var obj = new Object();
+                            obj.value = arr1[i];
+                            obj.name = arr2[i];
+                            dataArr.push(obj);
+                        }
+                        return dataArr;
+                        })(dataValue,dataName),
+                        itemStyle: {
+                            normal:{
+                                color:function (params){
+                                var colorList = ['#3fb1e3','#6be6c1','#626c91','#a0a7e6','#c4ebad','#96dee8', '#3fb1e3','#6be6c1','#626c91', '#3fb1e3','#6be6c1','#626c91','#a0a7e6','#c4ebad','#96dee8','#3fb1e3','#6be6c1','#626c91','#a0a7e6','#c4ebad','#96dee8','#3fb1e3','#6be6c1','#626c91','#a0a7e6','#c4ebad','#96dee8','#3fb1e3','#6be6c1','#626c91','#a0a7e6','#c4ebad','#96dee8','#3fb1e3','#6be6c1','#626c91','#a0a7e6','#c4ebad','#96dee8','#3fb1e3','#6be6c1','#626c91','#a0a7e6','#c4ebad','#96dee8','#3fb1e3','#6be6c1','#626c91','#a0a7e6','#c4ebad','#96dee8', '#3fb1e3','#6be6c1','#626c91', '#3fb1e3','#6be6c1','#626c91','#a0a7e6','#c4ebad','#96dee8','#3fb1e3','#6be6c1','#626c91','#a0a7e6','#c4ebad','#96dee8','#3fb1e3','#6be6c1','#626c91','#a0a7e6','#c4ebad','#96dee8','#3fb1e3','#6be6c1','#626c91','#a0a7e6','#c4ebad','#96dee8','#3fb1e3','#6be6c1','#626c91','#a0a7e6','#c4ebad','#96dee8','#3fb1e3','#6be6c1','#626c91','#a0a7e6','#c4ebad','#96dee8' ];
+                                return colorList[params.dataIndex];
+                                }
+                            },
+                            emphasis: {
+    {#                            barBorderColor: 'rgba(0,0,0,0)',   // 柱条边线#}
+    {#                            barBorderRadius: 0,                // 柱条边线圆角，单位px，默认为0#}
+    {#                            barBorderWidth: 1,                 // 柱条边线线宽，单位px，默认为1#}
+                                shadowBlur: 10,
+                                shadowOffsetX: 0,
+                                shadowColor: 'rgba(0, 0, 0, 0.5)'
+                            }
+                        }
+                    }
+                ]
+            };
+            faultyChart.setOption(faultyChart_option);
+         }
+
+        if ($("#faultWorld").length) {
+            var faultWorldKey = document.getElementsByName('faultWorldKey');
+            var faultWorldValue = document.getElementsByName('faultWorldValue');
+            var dataName = [];
+            var dataValue = [];
+            for(var i=0;i<faultWorldKey.length;i++){
+                dataName[i] = faultWorldKey[i].innerHTML;
+            }
+            for(var i=0;i<faultWorldValue.length;i++){
+                dataValue[i] = faultWorldValue[i].innerHTML;
+            }
+            console.log(dataName);
+            console.log(dataValue);
+
+            var faultWorldChart = echarts.init(document.getElementById('faultWorld'));
+
+
+            option = {
+                tooltip : {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b} : {c}"
+                },
+                toolbox:{
+                  show:true,
+                    feature:{
+                      mark:{show:true},
+                        dataView:{show:true,readOnly:false},
+                        saveAsImage:{show:true},
+                    }
+                },
+                series: [{
+                    type: 'wordCloud',
+
+                    shape:'circle',
+
+                    left:'center',
+                    top:'center',
+                    width:'100%',
+                    height:'80%',
+                    right:null,
+                    bottom:null,
+
+                    sizeRange:[12,60],
+{#                    center:['10%', '100%'],#}
+{#                    textRotation:[0,15,-15],#}
+{#                    size:['100%', '100%'] ,#}
+{#                    autoSize:{#}
+{#                       enable: true,#}
+{#                       minSize: 16#}
+{#                    },#}
+                    rotationRange:[-45,45],
+                    rotationStep:45,
+
+                    gridSize:18,
+
+{#                    drawOutBound:false,#}
+
+
+                    textStyle:{
+                        normal:{
+                            fontFamily:'sans-serif',
+                            fontWeight:'bold',
+                            color: function () {
+                                return 'rgb(' + [
+                                    Math.round(Math.random() * 160),
+                                    Math.round(Math.random() * 160),
+                                    Math.round(Math.random() * 160)
+                                ].join(',') + ')'
+                            },
+                        },
+                        emphasis:{
+                            shadowBlur:10,
+                            shadowColor:'#333',
+                        }
+                    },
+                    data:(function (arr1,arr2) {
+                        var len = arr1.length<arr2.length?arr1.length:arr2.length;
+                            var dataArr = [];
+                            for(var i=0;i<len;i++){
+                                var obj = new Object();
+                                obj.value = arr1[i];
+                                obj.name = arr2[i];
+                                dataArr.push(obj);
+                            }
+                            return dataArr;
+                    })(dataValue,dataName),
+
+                }]
+            };
+
+            faultWorldChart.setOption(option)
+{#            faultWorldChart.hideLoading()#}
+        }
+    </script>
+{% endblock %}
